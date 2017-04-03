@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+ * Space48_ProductAvailability
+ *
+ * @category    Space48
+ * @package     Space48_ProductAvailability
+ * @Date        03/2017
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      @diazwatson
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="space48" translate="label" sortOrder="105">
+            <label>Space48</label>
+        </tab>
+        <section id="space48_productavailability" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Product Availability</label>
+            <tab>space48</tab>
+            <resource>Space48_ProductAvailability::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Enable or disable Product Availability.]]></comment>
+                </field>
+                <field id="debug_mode" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Debug Mode</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                    <comment><![CDATA[Enable this to force product availability to show on products with stock.]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

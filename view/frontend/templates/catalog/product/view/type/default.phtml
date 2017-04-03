@@ -1,0 +1,38 @@
+<?php
+/**
+ * Space48_ProductAvailability
+ *
+ * @category    Space48
+ * @package     Space48_ProductAvailability
+ * @Date        03/2017
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @author      @diazwatson
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+
+<?php /* @var $block \Magento\Catalog\Block\Product\View\AbstractView */?>
+
+<?php $_product = $block->getProduct() ?>
+<?php if ($block->isDebugMode()) : ?>
+<div class="stock unavailable" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
+    <span><?php /* @escapeNotVerified */ echo __('Availability:') ?></span>
+    <span class="stock-text"><?= $block->getAvailability($_product); ?></span>
+</div>
+<?php else: ?>
+    <?php if ($block->displayProductStockStatus()): ?>
+        <?php if ($_product->isAvailable()): ?>
+            <div class="stock available" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
+                <span><?php /* @escapeNotVerified */ echo __('Availability:') ?></span>
+                <span class="stock-text"><?php /* @escapeNotVerified */ echo __('In stock') ?></span>
+            </div>
+        <?php else: ?>
+            <div class="stock unavailable" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
+                <span><?php /* @escapeNotVerified */ echo __('Availability:') ?></span>
+                <span class="stock-text"><?= $block->getAvailability($_product); ?></span>
+            </div>
+        <?php endif; ?>
+    <?php endif; ?>
+<?php endif; ?>
