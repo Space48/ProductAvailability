@@ -1,5 +1,6 @@
 # ProductAvailability
 Product Availability Magento 2 Module
+<img width="1228" alt="weathered_oak_clock" src="https://cloud.githubusercontent.com/assets/1080386/24592512/f410d0c4-180f-11e7-856f-a70e19f9ea6c.png">
 
 ## Installation
 
