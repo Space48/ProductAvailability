@@ -72,7 +72,7 @@ class ListProduct extends Template
     /**
      * @return bool
      */
-    public function isDebugMode() : bool
+    public function isDebugMode()
     {
         return $this->helper->isDebugMode();
     }
