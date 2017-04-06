@@ -12,8 +12,8 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-        <referenceBlock name="category.product.addto">
-            <block class="\Space48\ProductAvailability\Block\Catalog\Product\ListProduct" ifconfig="space48_productavailability/general/enabled" template="Space48_ProductAvailability::catalog/product/list.phtml" after="-"/>
+        <referenceBlock name="category.products.list">
+            <block class="\Space48\ProductAvailability\Block\Catalog\Product\ListProduct" name="space48.product.availability" as="space48-product-availability" ifconfig="space48_productavailability/general/enabled" template="Space48_ProductAvailability::catalog/product/list.phtml" after="-"/>
         </referenceBlock>
     </body>
 </page>

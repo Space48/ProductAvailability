@@ -66,7 +66,7 @@ class ListProduct extends Template
      */
     public function getProduct()
     {
-        return $this->getParentBlock()->getChildBlock('compare')->getProduct();
+        return $this->getData('product');
     }
 
     /**
