@@ -24,13 +24,21 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment><![CDATA[Enable or disable Product Availability.]]></comment>
                 </field>
+                <!--<field id="category_mode" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">-->
+                    <!--<label>Category Mode</label>-->
+                    <!--<source_model>Space48\ProductAvailability\Model\Config\Source\Category\Mode</source_model>-->
+                    <!--<comment><![CDATA[Custom allows you to show product availability based on your template.]]></comment>-->
+                    <!--<depends>-->
+                        <!--<field id="enabled">1</field>-->
+                    <!--</depends>-->
+                <!--</field>-->
                 <field id="debug_mode" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Debug Mode</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Enable this to force product availability to show on products with stock.]]></comment>
                     <depends>
                         <field id="enabled">1</field>
                     </depends>
-                    <comment><![CDATA[Enable this to force product availability to show on products with stock.]]></comment>
                 </field>
             </group>
         </section>

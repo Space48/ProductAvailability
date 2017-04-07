@@ -47,8 +47,8 @@ class Simple extends SimpleProduct
     )
     {
         $this->availability = $availability;
-        parent::__construct($context, $arrayUtils);
         $this->helper = $helper;
+        parent::__construct($context, $arrayUtils);
     }
 
     /**
