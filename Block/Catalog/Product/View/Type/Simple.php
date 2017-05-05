@@ -44,14 +44,15 @@ class Simple extends SimpleProduct
         ArrayUtils $arrayUtils,
         Availability $availability,
         Data $helper
-    )
-    {
+    ) {
         $this->availability = $availability;
         $this->helper = $helper;
         parent::__construct($context, $arrayUtils);
     }
 
     /**
+     * Product
+     *
      * @param $product
      *
      * @return \Magento\Framework\Phrase
@@ -67,6 +68,8 @@ class Simple extends SimpleProduct
     }
 
     /**
+     * IsDebugMode?
+     *
      * @return bool
      */
     public function isDebugMode()

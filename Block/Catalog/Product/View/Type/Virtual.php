@@ -22,6 +22,8 @@ class Virtual extends VirtualProduct
 {
 
     /**
+     * Availability
+     *
      * @var Availability
      */
     private $availability;
@@ -37,13 +39,14 @@ class Virtual extends VirtualProduct
         Context $context,
         ArrayUtils $arrayUtils,
         Availability $availability
-    )
-    {
+    ) {
         $this->availability = $availability;
         parent::__construct($context, $arrayUtils);
     }
 
     /**
+     * Product
+     *
      * @param $product
      *
      * @return \Magento\Framework\Phrase

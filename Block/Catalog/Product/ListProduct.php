@@ -1,8 +1,10 @@
 <?php
 /**
- * CatalogList.php
+ * Space48_ProductAvailability
  *
- * @Date        04/2017
+ * @category    Space48
+ * @package     Space48_ProductAvailability
+ * @Date        03/2017
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  * @author      @diazwatson
  */
@@ -17,10 +19,15 @@ class ListProduct extends Template
 {
 
     /**
+     * Availability
+     *
      * @var Availability
      */
     private $availability;
+
     /**
+     * Helper
+     *
      * @var Data
      */
     private $helper;
@@ -39,8 +46,7 @@ class ListProduct extends Template
         Data $helper,
         Context $context,
         array $data = []
-    )
-    {
+    ) {
         parent::__construct($context, $data);
         $this->availability = $availability;
         $this->helper = $helper;
