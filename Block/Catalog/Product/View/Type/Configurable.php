@@ -28,8 +28,6 @@ class Configurable extends ConfigurableProduct
 {
 
     /**
-     * Availability
-     *
      * @var Availability
      */
     private $availability;
@@ -38,14 +36,14 @@ class Configurable extends ConfigurableProduct
      * Configurable constructor.
      *
      * @param Context                   $context
-     * @param ArrayUtils                $arrayUtils
      * @param EncoderInterface          $jsonEncoder
      * @param Data                      $helper
      * @param Product                   $catalogProduct
      * @param CurrentCustomer           $currentCustomer
      * @param PriceCurrencyInterface    $priceCurrency
-     * @param ConfigurableAttributeData $configurableAttributeData
+     * @param ArrayUtils                $arrayUtils
      * @param Availability              $availability
+     * @param ConfigurableAttributeData $configurableAttributeData
      */
     public function __construct(
         Context $context,
@@ -57,7 +55,8 @@ class Configurable extends ConfigurableProduct
         PriceCurrencyInterface $priceCurrency,
         ConfigurableAttributeData $configurableAttributeData,
         Availability $availability
-    ) {
+    )
+    {
         $this->availability = $availability;
         $this->jsonEncoder = $jsonEncoder;
         $this->helper = $helper;
@@ -75,8 +74,6 @@ class Configurable extends ConfigurableProduct
     }
 
     /**
-     * Product
-     *
      * @param $product
      *
      * @return \Magento\Framework\Phrase

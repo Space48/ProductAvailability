@@ -3,7 +3,6 @@
     <module name="Space48_ProductAvailability" setup_version="1.0.0">
         <sequence>
             <module name="Magento_Catalog"/>
-            <module name="Magento_ConfigurableProduct"/>
         </sequence>
     </module>
 </config>

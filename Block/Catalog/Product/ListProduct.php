@@ -19,15 +19,10 @@ class ListProduct extends Template
 {
 
     /**
-     * Availability
-     *
      * @var Availability
      */
     private $availability;
-
     /**
-     * Helper
-     *
      * @var Data
      */
     private $helper;
@@ -61,7 +56,7 @@ class ListProduct extends Template
     {
         $message = '';
         if (!empty($availability = $this->availability->getAvailability($product))) {
-            $message = __('PRE-ORDER NOW FOR DEIVERY %1 %2', $availability['early_mid_date'], $availability['month']);
+            $message = __('PRE-ORDER NOW FOR DELIVERY %1 %2', $availability['early_mid_date'], $availability['month']);
         }
 
         return $message;
@@ -82,5 +77,4 @@ class ListProduct extends Template
     {
         return $this->helper->isDebugMode();
     }
-
 }

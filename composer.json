@@ -1,8 +1,8 @@
 {
     "name": "space48/productavailability",
-    "description": "Product Availability Magento 2 Module",
+    "description": "N/A",
     "type": "magento2-module",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "license": [
         "proprietary"
     ],

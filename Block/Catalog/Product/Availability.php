@@ -27,23 +27,23 @@ class Availability
      * Availability constructor.
      *
      * @param DateTime $dateTime
+     *
      */
     public function __construct(
         DateTime $dateTime
-    ) {
+    )
+    {
         $this->dateTime = $dateTime;
     }
 
     /**
-     * Product
-     *
      * @param $product
      *
      * @return array
      */
     public function getAvailability($product): array
     {
-        $availableFromDate = [];
+        $availableFromDate = array();
         if (!empty($availableFromX = $this->dateTime->strToTime($product->getData('available_from_x')))) {
             $availableFromDate['day'] = date('d', $availableFromX);
             $availableFromDate['month'] = date('F', $availableFromX);
@@ -54,8 +54,6 @@ class Availability
     }
 
     /**
-     * Get Early Mid Late
-     *
      * @param $day
      *
      * @return string

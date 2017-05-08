@@ -21,4 +21,4 @@ then
 `composer require "space48/productavailability:{module-version}"`
 
 ## How to use it
-Once installed, go to the `Admin Panel -> Stores -> Configuration -> Space48 -> Product Availability` and `enable` the extension.
+Once installed, go to the `Admin Penel -> Stores -> Configuration -> Space48 -> Product Availability` and `enable` the extension.
