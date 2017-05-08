@@ -21,7 +21,6 @@ use Space48\ProductAvailability\Helper\Data;
 
 class Simple extends SimpleProduct
 {
-
     /**
      * @var Availability
      */
@@ -44,8 +43,7 @@ class Simple extends SimpleProduct
         ArrayUtils $arrayUtils,
         Availability $availability,
         Data $helper
-    )
-    {
+    ) {
         $this->availability = $availability;
         $this->helper = $helper;
         parent::__construct($context, $arrayUtils);

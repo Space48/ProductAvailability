@@ -31,8 +31,7 @@ class Availability
      */
     public function __construct(
         DateTime $dateTime
-    )
-    {
+    ) {
         $this->dateTime = $dateTime;
     }
 
@@ -43,7 +42,8 @@ class Availability
      */
     public function getAvailability($product): array
     {
-        $availableFromDate = array();
+        $availableFromDate = [];
+        /** @var $product \Magento\Catalog\Model\Product */
         if (!empty($availableFromX = $this->dateTime->strToTime($product->getData('available_from_x')))) {
             $availableFromDate['day'] = date('d', $availableFromX);
             $availableFromDate['month'] = date('F', $availableFromX);
@@ -60,11 +60,8 @@ class Availability
      */
     private function getEarlyMidLate($day): string
     {
-        $day = intval($day);
+        $day = (int) $day;
 
         return ($day <= 10 ? 'early' : ($day <= 20 ? 'mid' : 'late'));
     }
-
 }
-
-

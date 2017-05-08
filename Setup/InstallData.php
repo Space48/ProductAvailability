@@ -34,8 +34,7 @@ class InstallData implements InstallDataInterface
      */
     public function __construct(
         EavSetupFactory $eavSetupFactory
-    )
-    {
+    ) {
         $this->eavSetupFactory = $eavSetupFactory;
     }
 
@@ -49,39 +48,41 @@ class InstallData implements InstallDataInterface
      */
     public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
     {
-        /** @var \Magento\Eav\Setup\EavSetup $eavSetup */
-        $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
+        if (version_compare($context->getVersion(), '1.0.0', '<')) {
+            /** @var \Magento\Eav\Setup\EavSetup $eavSetup */
+            $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
 
-        foreach ($this->getNewAttributes() as $attribute) {
+            foreach ($this->getNewAttributes() as $attribute) {
+                $eavSetup->addAttribute(
+                    Product::ENTITY,
+                    $attribute['attribute_code'],
+                    [
+                        'type'                    => $attribute['type'],
+                        'label'                   => $attribute['label'],
+                        'input'                   => $attribute['input'],
+                        'backend'                 => $attribute['backend'],
+                        'required'                => false,
+                        'global'                  => ScopedAttributeInterface::SCOPE_GLOBAL,
+                        'frontend'                => $attribute['frontend'],
+                        'class'                   => '',
+                        'source'                  => '',
+                        'visible'                 => true,
+                        'user_defined'            => false,
+                        'default'                 => null,
+                        'searchable'              => false,
+                        'filterable'              => false,
+                        'comparable'              => false,
+                        'visible_on_front'        => false,
+                        'used_in_product_listing' => true,
+                        'is_used_in_grid'         => true,
+                        'is_visible_in_grid'      => false,
+                        'is_filterable_in_grid'   => false,
+                        'unique'                  => false,
+                        'apply_to'                => ''
 
-            $eavSetup->addAttribute(
-                Product::ENTITY,
-                $attribute['attribute_code'],
-                [
-                    'type'                    => $attribute['type'],
-                    'label'                   => $attribute['label'],
-                    'input'                   => $attribute['input'],
-                    'backend'                 => $attribute['backend'],
-                    'required'                => false,
-                    'global'                  => ScopedAttributeInterface::SCOPE_GLOBAL,
-                    'frontend'                => $attribute['frontend'],
-                    'class'                   => '',
-                    'source'                  => '',
-                    'visible'                 => true,
-                    'user_defined'            => false,
-                    'default'                 => null,
-                    'searchable'              => false,
-                    'filterable'              => false,
-                    'comparable'              => false,
-                    'visible_on_front'        => false,
-                    'used_in_product_listing' => true,
-                    'is_used_in_grid'         => true,
-                    'is_visible_in_grid'      => false,
-                    'is_filterable_in_grid'   => false,
-                    'unique'                  => false,
-                    'apply_to'                => ''
-
-                ]);
+                    ]
+                );
+            }
         }
     }
 
@@ -90,14 +91,15 @@ class InstallData implements InstallDataInterface
      */
     private function getNewAttributes()
     {
-        $attributes = array([
-            'attribute_code' => 'available_from_x',
-            'type'           => Table::TYPE_DATETIME,
-            'label'          => 'Available From Date',
-            'input'          => 'date',
-            'backend'        => 'Magento\Eav\Model\Entity\Attribute\Backend\Datetime',
-            'frontend'       => 'Magento\Eav\Model\Entity\Attribute\Frontend\Datetime'
-        ],
+        $attributes = [
+            [
+                'attribute_code' => 'available_from_x',
+                'type'           => Table::TYPE_DATETIME,
+                'label'          => 'Available From Date',
+                'input'          => 'date',
+                'backend'        => 'Magento\Eav\Model\Entity\Attribute\Backend\Datetime',
+                'frontend'       => 'Magento\Eav\Model\Entity\Attribute\Frontend\Datetime'
+            ],
             [
                 'attribute_code' => 'available_to_promise',
                 'type'           => Table::TYPE_TEXT,
@@ -105,7 +107,8 @@ class InstallData implements InstallDataInterface
                 'input'          => 'text',
                 'backend'        => '',
                 'frontend'       => ''
-            ],);
+            ],
+        ];
 
         return $attributes;
     }

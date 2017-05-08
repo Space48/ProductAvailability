@@ -37,8 +37,7 @@ class Virtual extends VirtualProduct
         Context $context,
         ArrayUtils $arrayUtils,
         Availability $availability
-    )
-    {
+    ) {
         $this->availability = $availability;
         parent::__construct($context, $arrayUtils);
     }

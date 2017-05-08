@@ -55,8 +55,7 @@ class Configurable extends ConfigurableProduct
         PriceCurrencyInterface $priceCurrency,
         ConfigurableAttributeData $configurableAttributeData,
         Availability $availability
-    )
-    {
+    ) {
         $this->availability = $availability;
         $this->jsonEncoder = $jsonEncoder;
         $this->helper = $helper;

@@ -24,15 +24,15 @@ class Data extends AbstractHelper
      */
     public function isDebugMode()
     {
-        return $this->_getConfig('debug_mode');
+        return $this->getConfig('debug_mode');
     }
 
     /**
      * @param $field
      *
-     * @return bool
+     * @return string
      */
-    protected function _getConfig($field)
+    private function getConfig($field)
     {
         return (bool) $this->scopeConfig->getValue(
             self::PRODUCTAVAILABILITY_SYSCONFIG_PATH .
