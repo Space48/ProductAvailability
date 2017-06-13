@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="productalert.stock" remove="true"/>
+        <referenceContainer name="alert.urls">
+            <block class="Space48\ProductAvailability\Block\ProductAlert\Product\View\Stock" name="space48.productalert.stock" as="space48_productalert_stock" template="Space48_ProductAvailability::catalog/product/out-of-stock-button.phtml">
+                <action method="setHtmlClass">
+                    <argument name="value" xsi:type="string">stock</argument>
+                </action>
+                <action method="setSignupLabel">
+                    <argument translate="true" name="value" xsi:type="string">Notify me when this product is in stock</argument>
+                </action>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="product.info.addtocart" remove="true"/>
+        <referenceContainer name="product.info.form.content">
+            <block class="Space48\ProductAvailability\Block\Catalog\Product\View" name="space48.product.info.addtocart" as="space48_addtocart" template="Space48_ProductAvailability::catalog/product/view/addtocart.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

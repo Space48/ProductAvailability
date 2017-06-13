@@ -14,4 +14,7 @@
     <preference for="\Magento\Catalog\Block\Product\View\Type\Simple" type="Space48\ProductAvailability\Block\Catalog\Product\View\Type\Simple"/>
     <preference for="\Magento\Catalog\Block\Product\View\Type\Virtual" type="Space48\ProductAvailability\Block\Catalog\Product\View\Type\Virtual"/>
     <preference for="\Magento\ConfigurableProduct\Block\Product\View\Type\Configurable" type="Space48\ProductAvailability\Block\Catalog\Product\View\Type\Configurable"/>
+    <type name="Magento\GroupedProduct\Model\Product\Type\Grouped">
+        <plugin name="addAttributesToGroupedAssociatedProducts" type="Space48\ProductAvailability\Plugin\Model\Product\Type\Grouped" sortOrder="1" disabled="false"/>
+    </type>
 </config>
