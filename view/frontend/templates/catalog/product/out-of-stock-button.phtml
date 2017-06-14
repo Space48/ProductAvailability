@@ -1,8 +1,0 @@
-<?php if ($block->showNotifyMeButton()) : ?>
-<div class="product alert <?php echo $block->getHtmlClass() ?>">
-    <button type="button" href="#" data-post='<?php /* @escapeNotVerified */ echo $block->getPostAction(); ?>'
-       title="<?php echo $block->escapeHtml(__($block->getSignupLabel())); ?>" class="action primary alert">
-        <?php echo $block->escapeHtml(__($block->getSignupLabel())); ?>
-    </button>
-</div>
-<?php endif ?>
