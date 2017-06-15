@@ -18,9 +18,11 @@ use Magento\Catalog\Block\Product\View\Type\Simple as SimpleProduct;
 use Magento\Framework\Stdlib\ArrayUtils;
 use Space48\ProductAvailability\Block\Catalog\Product\Availability;
 use Space48\ProductAvailability\Helper\Data;
+use Magento\CatalogInventory\Api\StockStateInterface;
 
 class Simple extends SimpleProduct
 {
+
     /**
      * @var Availability
      */
@@ -31,21 +33,29 @@ class Simple extends SimpleProduct
     private $helper;
 
     /**
+     * @var StockStateInterface
+     */
+    private $stockStateInterface;
+
+    /**
      * Simple constructor.
      *
-     * @param Context      $context
-     * @param ArrayUtils   $arrayUtils
-     * @param Availability $availability
-     * @param Data         $helper
+     * @param Context               $context
+     * @param ArrayUtils            $arrayUtils
+     * @param Availability          $availability
+     * @param StockStateInterface   $stockStateInterface
+     * @param Data                  $helper
      */
     public function __construct(
         Context $context,
         ArrayUtils $arrayUtils,
         Availability $availability,
+        StockStateInterface $stockStateInterface,
         Data $helper
     ) {
         $this->availability = $availability;
         $this->helper = $helper;
+        $this->stockStateInterface = $stockStateInterface;
         parent::__construct($context, $arrayUtils);
     }
 
@@ -70,5 +80,13 @@ class Simple extends SimpleProduct
     public function isDebugMode()
     {
         return $this->helper->isDebugMode();
+    }
+
+    public function getProductStockQty($product)
+    {
+        return $this->stockStateInterface->getStockQty(
+            $product->getId(),
+            $product->getStore()->getWebsiteId()
+        );
     }
 }

@@ -23,7 +23,7 @@
 </div>
 <?php else: ?>
     <?php if ($block->displayProductStockStatus()): ?>
-        <?php if ($_product->isAvailable()): ?>
+        <?php if ($this->getProductStockQty($_product) > 0): ?>
             <div class="stock available" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
                 <span><?php /* @escapeNotVerified */ echo __('Availability:') ?></span>
                 <span class="stock-text"><?php /* @escapeNotVerified */ echo __('In stock') ?></span>
