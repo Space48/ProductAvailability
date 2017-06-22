@@ -12,5 +12,5 @@
 <?php /** @var $block \Space48\ProductAvailability\Block\Catalog\Product\ListProduct */ ?>
 <?php $_product = $block->getProduct(); ?>
 <?php if (!$_product->isAvailable() || $block->isDebugMode()) : ?>
-    <? echo $block->getAvailability($_product) ?>
+    <?php echo $block->getAvailability($_product) ?>
 <?php endif; ?>

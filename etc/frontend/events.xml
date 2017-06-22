@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="space_set_quickview_data_after">
+        <observer name="addProductAvailabilityToQuickViewData" instance="Space48\ProductAvailability\Observer\QuickViewData" />
+    </event>
+</config>
