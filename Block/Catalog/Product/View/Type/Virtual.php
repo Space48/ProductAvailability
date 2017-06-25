@@ -49,7 +49,7 @@ class Virtual extends VirtualProduct
      */
     public function getAvailability($product)
     {
-        $message = '';
+        $message = __('');
         if (!empty($availability = $this->availability->getAvailability($product))) {
             $message = __('Item due to arrive in stock %1 %2', $availability['early_mid_date'], $availability['month']);
         }
