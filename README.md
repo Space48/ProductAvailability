@@ -1,5 +1,7 @@
 # ProductAvailability
-Product Availability Magento 2 Module
+Product Availability module for Magento 2
+
+
 <img width="1228" alt="weathered_oak_clock" src="https://cloud.githubusercontent.com/assets/1080386/24592512/f410d0c4-180f-11e7-856f-a70e19f9ea6c.png">
 
 <img width="1265" alt="products" src="https://cloud.githubusercontent.com/assets/1080386/24808033/5d6ea88e-1bb2-11e7-818e-08de5658540d.png">
@@ -18,7 +20,7 @@ From the terminal execute the following:
 
 then
 
-`composer require "space48/productavailability:1.0.0"`
+`composer require "space48/productavailability:{release-version}"`
 
 ## How to use it
 Once installed, go to the `Admin Panel -> Stores -> Configuration -> Space48 -> Product Availability` and `enable` the extension.
