@@ -15,10 +15,9 @@ namespace Space48\ProductAvailability\Block\Catalog\Product\View\Type;
 
 use Magento\Catalog\Block\Product\Context;
 use Magento\Catalog\Block\Product\View\Type\Simple as SimpleProduct;
+use Magento\Framework\Phrase;
 use Magento\Framework\Stdlib\ArrayUtils;
 use Space48\ProductAvailability\Block\Catalog\Product\Availability;
-use Space48\ProductAvailability\Helper\Data;
-use Magento\CatalogInventory\Api\StockStateInterface;
 
 class Simple extends SimpleProduct
 {
@@ -27,66 +26,48 @@ class Simple extends SimpleProduct
      * @var Availability
      */
     private $availability;
-    /**
-     * @var Data
-     */
-    private $helper;
-
-    /**
-     * @var StockStateInterface
-     */
-    private $stockStateInterface;
 
     /**
      * Simple constructor.
      *
-     * @param Context               $context
-     * @param ArrayUtils            $arrayUtils
-     * @param Availability          $availability
-     * @param StockStateInterface   $stockStateInterface
-     * @param Data                  $helper
+     * @param Context      $context
+     * @param ArrayUtils   $arrayUtils
+     * @param Availability $availability
+     *
      */
     public function __construct(
         Context $context,
         ArrayUtils $arrayUtils,
-        Availability $availability,
-        StockStateInterface $stockStateInterface,
-        Data $helper
+        Availability $availability
     ) {
         $this->availability = $availability;
-        $this->helper = $helper;
-        $this->stockStateInterface = $stockStateInterface;
         parent::__construct($context, $arrayUtils);
+    }
+
+    /**
+     * @param        $product
+     *
+     * @param string $view
+     *
+     * @return Phrase
+     */
+    public function getAvailability($product, $view = 'pdp')
+    {
+        return $this->availability->getAvailabilityMessage($product, $view);
     }
 
     /**
      * @param $product
      *
-     * @return \Magento\Framework\Phrase
-     */
-    public function getAvailability($product)
-    {
-        $message = __('');
-        if (!empty($availability = $this->availability->getAvailability($product))) {
-            $message = __('Item due to arrive in stock %1 %2', $availability['early_mid_date'], $availability['month']);
-        }
-
-        return $message;
-    }
-
-    /**
      * @return bool
      */
-    public function isDebugMode()
+    public function isInStock($product)
     {
-        return $this->helper->isDebugMode();
+        return $this->availability->getAvailableStock($product) ? true : false;
     }
 
-    public function getProductStockQty($product)
+    public function isDebugMode()
     {
-        return $this->stockStateInterface->getStockQty(
-            $product->getId(),
-            $product->getStore()->getWebsiteId()
-        );
+        return false;
     }
 }

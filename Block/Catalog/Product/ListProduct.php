@@ -13,38 +13,40 @@ namespace Space48\ProductAvailability\Block\Catalog\Product;
 
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
-use Space48\ProductAvailability\Helper\Data;
+use Space48\ProductAvailability\Helper\Config;
 
 class ListProduct extends Template
 {
+
+    const PORIDUCT_LIST_PAGE = 'plp';
 
     /**
      * @var Availability
      */
     private $availability;
     /**
-     * @var Data
+     * @var Config
      */
-    private $helper;
+    private $config;
 
     /**
      * ListProduct constructor.
      *
      * @param Availability $availability
-     * @param Data         $helper
+     * @param Config       $config
      *
      * @param Context      $context
      * @param array        $data
      */
     public function __construct(
         Availability $availability,
-        Data $helper,
+        Config $config,
         Context $context,
         array $data = []
     ) {
         parent::__construct($context, $data);
         $this->availability = $availability;
-        $this->helper = $helper;
+        $this->config = $config;
     }
 
     /**
@@ -52,14 +54,9 @@ class ListProduct extends Template
      *
      * @return \Magento\Framework\Phrase
      */
-    public function getAvailability($product)
+    public function getAvailabilityMessage($product)
     {
-        $message = '';
-        if (!empty($availability = $this->availability->getAvailability($product))) {
-            $message = __('PRE-ORDER NOW FOR DELIVERY %1 %2', $availability['early_mid_date'], $availability['month']);
-        }
-
-        return $message;
+        return $this->availability->getAvailabilityMessage($product, self::PORIDUCT_LIST_PAGE);
     }
 
     /**
@@ -75,6 +72,17 @@ class ListProduct extends Template
      */
     public function isDebugMode()
     {
-        return $this->helper->isDebugMode();
+        return $this->config->isDebugMode();
     }
+
+    /**
+     * @param $product
+     *
+     * @return bool
+     */
+    public function isInStock($product)
+    {
+        return $this->availability->getAvailableStock($product) ? true : false;
+    }
+
 }

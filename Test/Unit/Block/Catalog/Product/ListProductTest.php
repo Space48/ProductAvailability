@@ -13,42 +13,49 @@ namespace Space48\ProductAvailability\Block\Catalog\Product;
 
 use Magento\Catalog\Model\Product;
 
+use Magento\CatalogInventory\Api\StockStateInterface;
 use Magento\Framework\Phrase;
 use Magento\Framework\Stdlib\DateTime;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
-use Space48\ProductAvailability\Helper\Data;
+use Space48\ProductAvailability\Helper\Config;
 
 class ListProductTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testBlockIsInstanceOfTemplate()
     {
-
         $block = $this->getBlock();
         $this->assertInstanceOf(Template::class, $block);
     }
 
     /**
-     * @param $stubAvailability
-     * @param $stubHelper
-     * @param $stubContext
+     * @return ListProduct
+     * @internal param $stubAvailability
+     * @internal param $stubHelper
+     * @internal param $stubContext
      *
-     * @return \Space48\ProductAvailability\Block\Catalog\Product\ListProduct
      */
     private function getBlock(): ListProduct
     {
-        $stubAvailability = new Availability(new DateTime());
-
-        $stubHelper = $this->getMockBuilder(Data::class)
+        /** @var \PHPUnit_Framework_MockObject_MockObject | StockStateInterface $stockStateInterfaceMock */
+        $stockStateInterfaceMock = $this->getMockBuilder(StockStateInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
+        $availability = new Availability(new DateTime(), $stockStateInterfaceMock);
+
+        /** @var \PHPUnit_Framework_MockObject_MockObject | Config $stubConfig */
+        $stubConfig = $this->getMockBuilder(Config::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        /** @var \PHPUnit_Framework_MockObject_MockObject | Context $stubContext */
         $stubContext = $this->getMockBuilder(Context::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $block = new ListProduct($stubAvailability, $stubHelper, $stubContext);
+        $block = new ListProduct($availability, $stubConfig, $stubContext);
 
         return $block;
     }
@@ -57,18 +64,18 @@ class ListProductTest extends \PHPUnit_Framework_TestCase
     {
         $product = $this->getProduct();
 
-        $this->assertInstanceOf(Phrase::class, $this->getBlock()->getAvailability($product));
+        $this->assertInstanceOf(Phrase::class, $this->getBlock()->getAvailabilityMessage($product));
 
         $this->assertContains(
             'PRE-ORDER NOW FOR DELIVERY %1 %2',
-            $this->getBlock()->getAvailability($product)->getText()
+            $this->getBlock()->getAvailabilityMessage($product)->getText()
         );
     }
 
     /**
      * @return Product | \PHPUnit_Framework_MockObject_MockObject
      */
-    private function getProduct(): \PHPUnit_Framework_MockObject_MockObject
+    private function getProduct(): Product
     {
         $product = $this->getMockBuilder(Product::class)
             ->disableOriginalConstructor()

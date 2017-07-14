@@ -21,6 +21,12 @@ class QuickViewData implements ObserverInterface
     private $productAvailability;
     private $catalogSession;
 
+    /**
+     * QuickViewData constructor.
+     *
+     * @param ProductAvailability $productAvailability
+     * @param Session             $catalogSession
+     */
     public function __construct(
         ProductAvailability $productAvailability,
         Session $catalogSession

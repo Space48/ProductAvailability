@@ -16,10 +16,11 @@
 <?php /* @var $block \Magento\Catalog\Block\Product\View\AbstractView */?>
 
 <?php $_product = $block->getProduct() ?>
+<?php $availability = $block->getChildBlock('getAvailability') ?>
 <?php if ($block->isDebugMode()) : ?>
 <div class="stock unavailable" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
     <span><?php /* @escapeNotVerified */ echo __('Availability:') ?></span>
-    <span class="stock-text"><?= $block->getAvailability($_product); ?></span>
+    <span class="stock-text"><?= $availability->getAvailability($_product); ?></span>
 </div>
 <?php else: ?>
     <?php if ($block->displayProductStockStatus()): ?>
@@ -31,7 +32,7 @@
         <?php else: ?>
             <div class="stock unavailable" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
                 <span><?php /* @escapeNotVerified */ echo __('Availability:') ?></span>
-                <span class="stock-text"><?= $block->getAvailability($_product); ?></span>
+                <span class="stock-text"><?= $availability->getAvailability($_product); ?></span>
             </div>
         <?php endif; ?>
     <?php endif; ?>

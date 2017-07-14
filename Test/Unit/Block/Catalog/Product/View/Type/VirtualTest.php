@@ -16,6 +16,7 @@ namespace Space48\ProductAvailability\Test\Block\Catalog\Product\View\Type;
 use Magento\Catalog\Block\Product\Context;
 use \Magento\Catalog\Block\Product\View\AbstractView;
 use Magento\Catalog\Model\Product;
+use Magento\CatalogInventory\Api\StockStateInterface;
 use Magento\Framework\Phrase;
 use Magento\Framework\Stdlib\ArrayUtils;
 use Magento\Framework\Stdlib\DateTime;
@@ -40,15 +41,27 @@ class VirtualTest extends \PHPUnit_Framework_TestCase
         /** @var \PHPUnit_Framework_MockObject_MockObject | ArrayUtils $stubArrayUtils */
         $stubArrayUtils = $this->getMockBuilder(ArrayUtils::class)->getMock();
 
-        /** @var \PHPUnit_Framework_MockObject_MockObject | Availability $availability */
-        $availability = new Availability(new DateTime());
+        /** @var \PHPUnit_Framework_MockObject_MockObject | Availability $availabilityMock */
 
-        return new Virtual($stubContext, $stubArrayUtils, $availability);
+        /** @var \PHPUnit_Framework_MockObject_MockObject | DateTime $dateTimeMock */
+        $dateTimeMock = $this->getMockBuilder(DateTime::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        /** @var \PHPUnit_Framework_MockObject_MockObject | StockStateInterface $stockStateInterfaceMock */
+        $stockStateInterfaceMock = $this->getMockBuilder(StockStateInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $availabilityMock = new Availability($dateTimeMock, $stockStateInterfaceMock);
+
+
+        return new Virtual($stubContext, $stubArrayUtils, $availabilityMock);
     }
 
     public function testGetAvailabilityReturnType()
     {
-        $this->assertInstanceOf(Phrase::class, $this->getBlock()->getAvailability($this->getProduct()));
+        $this->assertInstanceOf(Phrase::class, $this->getBlock()->getAvailabilityMessage($this->getProduct()));
     }
 
     /**

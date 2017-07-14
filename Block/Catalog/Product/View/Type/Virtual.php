@@ -47,13 +47,18 @@ class Virtual extends VirtualProduct
      *
      * @return \Magento\Framework\Phrase
      */
-    public function getAvailability($product)
+    public function getAvailabilityMessage($product)
     {
-        $message = __('');
-        if (!empty($availability = $this->availability->getAvailability($product))) {
-            $message = __('Item due to arrive in stock %1 %2', $availability['early_mid_date'], $availability['month']);
-        }
+        return $this->availability->getAvailabilityMessage($product, 'pdp');
+    }
 
-        return $message;
+    /**
+     * @param $product
+     *
+     * @return bool
+     */
+    public function isInStock($product)
+    {
+        return $this->availability->getAvailableStock($product) ? true : false;
     }
 }

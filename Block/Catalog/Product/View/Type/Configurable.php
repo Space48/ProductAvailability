@@ -13,7 +13,8 @@ declare(strict_types=1);
 
 namespace Space48\ProductAvailability\Block\Catalog\Product\View\Type;
 
-use Magento\Catalog\Helper\Product;
+use Magento\Catalog\Helper\Product as ProductHelper;
+use Magento\Catalog\Model\Product;
 use Magento\ConfigurableProduct\Block\Product\View\Type\Configurable as ConfigurableProduct;
 use Magento\Catalog\Block\Product\Context;
 use Magento\ConfigurableProduct\Helper\Data;
@@ -36,21 +37,21 @@ class Configurable extends ConfigurableProduct
      * Configurable constructor.
      *
      * @param Context                   $context
+     * @param ArrayUtils                $arrayUtils
      * @param EncoderInterface          $jsonEncoder
      * @param Data                      $helper
-     * @param Product                   $catalogProduct
+     * @param ProductHelper             $catalogProduct
      * @param CurrentCustomer           $currentCustomer
      * @param PriceCurrencyInterface    $priceCurrency
-     * @param ArrayUtils                $arrayUtils
-     * @param Availability              $availability
      * @param ConfigurableAttributeData $configurableAttributeData
+     * @param Availability              $availability
      */
     public function __construct(
         Context $context,
         ArrayUtils $arrayUtils,
         EncoderInterface $jsonEncoder,
         Data $helper,
-        Product $catalogProduct,
+        ProductHelper $catalogProduct,
         CurrentCustomer $currentCustomer,
         PriceCurrencyInterface $priceCurrency,
         ConfigurableAttributeData $configurableAttributeData,
@@ -73,17 +74,24 @@ class Configurable extends ConfigurableProduct
     }
 
     /**
-     * @param $product
+     * @param Product $product
+     *
+     * @param string  $view
      *
      * @return \Magento\Framework\Phrase
      */
-    public function getAvailability($product)
+    public function getAvailability($product, $view = 'pdp')
     {
-        $message = __('');
-        if (!empty($availability = $this->availability->getAvailability($product))) {
-            $message = __('Item due to arrive in stock %1 %2', $availability['early_mid_date'], $availability['month']);
-        }
+        return $this->availability->getAvailabilityMessage($product, $view);
+    }
 
-        return $message;
+    /**
+     * @param $product
+     *
+     * @return bool
+     */
+    public function isInStock($product)
+    {
+        return $this->availability->getAvailableStock($product) ? true : false;
     }
 }

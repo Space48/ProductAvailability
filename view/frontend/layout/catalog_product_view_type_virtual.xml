@@ -13,6 +13,7 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceBlock name="product.info.virtual">
+            <block class="Space48\ProductAvailability\Block\Catalog\Product\View\Type\Virtual" name="product.availability.virtual" as="product_availability" />
             <action method="setTemplate">
                 <argument name="template" xsi:type="string">Space48_ProductAvailability::catalog/product/view/type/default.phtml</argument>
             </action>

@@ -13,7 +13,6 @@
         <space48_productavailability>
             <general>
                 <enabled>0</enabled>
-                <!--<category_mode>0</category_mode>-->
                 <debug_mode>0</debug_mode>
             </general>
         </space48_productavailability>
