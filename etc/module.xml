@@ -3,6 +3,7 @@
     <module name="Space48_ProductAvailability" setup_version="1.0.0">
         <sequence>
             <module name="Magento_Catalog"/>
+            <module name="Space48_PreSell"/>
         </sequence>
     </module>
 </config>

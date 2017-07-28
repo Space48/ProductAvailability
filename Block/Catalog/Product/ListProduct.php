@@ -18,7 +18,7 @@ use Space48\ProductAvailability\Helper\Config;
 class ListProduct extends Template
 {
 
-    const PORIDUCT_LIST_PAGE = 'plp';
+    const PRODUCT_LIST_PAGE = 'plp';
 
     /**
      * @var Availability
@@ -54,9 +54,9 @@ class ListProduct extends Template
      *
      * @return \Magento\Framework\Phrase
      */
-    public function getAvailabilityMessage($product)
+    public function getAvailability($product)
     {
-        return $this->availability->getAvailabilityMessage($product, self::PORIDUCT_LIST_PAGE);
+        return $this->availability->getAvailabilityDisplay($product, self::PRODUCT_LIST_PAGE);
     }
 
     /**

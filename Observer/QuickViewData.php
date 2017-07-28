@@ -40,8 +40,10 @@ class QuickViewData implements ObserverInterface
         $specialQuickViewData = $this->catalogSession->getSpecialQuickViewData();
         $product = $observer->getEvent()->getProduct();
 
+        $availability = $this->productAvailability->getAvailability($product);
+
         $newSpecialData = [
-            'availability_msg' => $this->productAvailability->getAvailability($product)
+            'availability_msg' => $availability['label']
         ];
 
         $this->catalogSession->setSpecialQuickViewData(array_merge($newSpecialData, $specialQuickViewData));

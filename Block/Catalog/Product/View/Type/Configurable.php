@@ -82,7 +82,7 @@ class Configurable extends ConfigurableProduct
      */
     public function getAvailability($product, $view = 'pdp')
     {
-        return $this->availability->getAvailabilityMessage($product, $view);
+        return $this->availability->getAvailabilityDisplay($product, $view);
     }
 
     /**

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="product.info.grouped" remove="true" />
+        <referenceContainer name="product.info.form.content">
+            <block class="Space48\ProductAvailability\Block\Catalog\Product\View\Type\Grouped" name="space48.product.info.grouped" before="space48.product.info.addtocart" template="Space48_ProductAvailability::catalog/product/view/type/grouped.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

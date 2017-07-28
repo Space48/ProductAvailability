@@ -11,6 +11,7 @@
 ?>
 <?php /** @var $block \Space48\ProductAvailability\Block\Catalog\Product\ListProduct */ ?>
 <?php $product = $block->getProduct(); ?>
-<?php if (!$block->isInStock($product) || $block->isDebugMode()) : ?>
-    <?php echo $block->getAvailabilityMessage($product) ?>
-<?php endif; ?>
+<?php $availability = $block->getAvailability($product) ?>
+<?php if ($availability['has_date'] === true) : ?>
+    <?php echo $availability['label'] ?>
+<?php endif ?>

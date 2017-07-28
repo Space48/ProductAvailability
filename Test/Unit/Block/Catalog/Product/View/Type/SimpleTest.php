@@ -15,6 +15,7 @@ use Magento\CatalogInventory\Api\StockStateInterface;
 use Magento\Framework\Stdlib\ArrayUtils;
 use Magento\Framework\Stdlib\DateTime;
 use Space48\ProductAvailability\Block\Catalog\Product\Availability;
+use Space48\PreSell\Block\PreSell;
 
 class SimpleTest extends \PHPUnit_Framework_TestCase
 {
@@ -30,7 +31,7 @@ class SimpleTest extends \PHPUnit_Framework_TestCase
     /**
      * @return Product | \PHPUnit_Framework_MockObject_MockObject
      */
-    private function getProduct(): Product
+    private function getProduct()
     {
         $product = $this->getMockBuilder(Product::class)
             ->disableOriginalConstructor()
@@ -45,18 +46,18 @@ class SimpleTest extends \PHPUnit_Framework_TestCase
 
     public function testGetAvailabilityForPdpProduct()
     {
-        $expected = "Item due to arrive in stock %1 %2";
-        $PdpAvailabilityMessage = $this->getBlock()->getAvailability($this->product, 'pdp')
-            ->getText();
+        $availability = $this->getBlock()->getAvailability($this->product, 'pdp');
+        $expected = __('Item due to arrive in stock %1 %2', ['late', 'May']);
+        $PdpAvailabilityMessage = $availability['label'];
 
-        $this->assertContains($expected, $PdpAvailabilityMessage);
+        $this->assertEquals($expected, $PdpAvailabilityMessage);
 
     }
 
     /**
      * @return Simple
      */
-    public function getBlock(): Simple
+    public function getBlock()
     {
         /** @var \PHPUnit_Framework_MockObject_MockObject | Context $contextMock */
         $contextMock = $this->getMockBuilder(Context::class)
@@ -71,7 +72,16 @@ class SimpleTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $availability = new Availability(new DateTime(), $stockStateInterfaceMock);
+        /** @var \PHPUnit_Framework_MockObject_MockObject | PreSell $preSellMock */
+        $preSellMock = $this->getMockBuilder(PreSell::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $preSellMock->method('getStockItemIsInStock')->willReturn(true);
+        $preSellMock->method('getStockQty')->willReturn(0);
+        $preSellMock->method('canPreSell')->willReturn(true);
+
+        $availability = new Availability(new DateTime(), $stockStateInterfaceMock, $preSellMock);
 
         return new Simple(
             $contextMock,
@@ -82,12 +92,11 @@ class SimpleTest extends \PHPUnit_Framework_TestCase
 
     public function testGetAvailabilityForPlpProduct()
     {
-        $expected = "PRE-ORDER NOW FOR DELIVERY %1 %2";
-        $PdpAvailabilityMessage = $this->getBlock()->getAvailability($this->product, 'plp')
-            ->getText();
+        $availability = $this->getBlock()->getAvailability($this->product, 'plp');
+        $expected = __('PRE-ORDER NOW FOR DELIVERY %1 %2', ['late', 'May']);
+        $PdpAvailabilityMessage = $availability['label'];
 
-        $this->assertContains($expected, $PdpAvailabilityMessage
-        );
+        $this->assertEquals($expected, $PdpAvailabilityMessage);
     }
 
     public function testIsInStockReturnsRightType()
