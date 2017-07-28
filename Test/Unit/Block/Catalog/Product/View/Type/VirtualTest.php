@@ -22,6 +22,7 @@ use Magento\Framework\Stdlib\ArrayUtils;
 use Magento\Framework\Stdlib\DateTime;
 use Space48\ProductAvailability\Block\Catalog\Product\Availability;
 use Space48\ProductAvailability\Block\Catalog\Product\View\Type\Virtual;
+use Space48\PreSell\Block\PreSell;
 
 class VirtualTest extends \PHPUnit_Framework_TestCase
 {
@@ -53,15 +54,20 @@ class VirtualTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $availabilityMock = new Availability($dateTimeMock, $stockStateInterfaceMock);
+        /** @var \PHPUnit_Framework_MockObject_MockObject | PreSell $preSellMock */
+        $preSellMock = $this->getMockBuilder(PreSell::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
+        $availabilityMock = new Availability($dateTimeMock, $stockStateInterfaceMock, $preSellMock);
 
         return new Virtual($stubContext, $stubArrayUtils, $availabilityMock);
     }
 
     public function testGetAvailabilityReturnType()
     {
-        $this->assertInstanceOf(Phrase::class, $this->getBlock()->getAvailabilityMessage($this->getProduct()));
+        $availability = $this->getBlock()->getAvailability($this->getProduct());
+        $this->assertInstanceOf(Phrase::class, $availability['label']);
     }
 
     /**

@@ -47,9 +47,9 @@ class Virtual extends VirtualProduct
      *
      * @return \Magento\Framework\Phrase
      */
-    public function getAvailabilityMessage($product)
+    public function getAvailability($product)
     {
-        return $this->availability->getAvailabilityMessage($product, 'pdp');
+        return $this->availability->getAvailabilityDisplay($product, 'pdp');
     }
 
     /**

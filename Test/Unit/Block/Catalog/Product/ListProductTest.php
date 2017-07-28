@@ -19,6 +19,7 @@ use Magento\Framework\Stdlib\DateTime;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use Space48\ProductAvailability\Helper\Config;
+use Space48\PreSell\Block\PreSell;
 
 class ListProductTest extends \PHPUnit_Framework_TestCase
 {
@@ -36,14 +37,19 @@ class ListProductTest extends \PHPUnit_Framework_TestCase
      * @internal param $stubContext
      *
      */
-    private function getBlock(): ListProduct
+    private function getBlock()
     {
         /** @var \PHPUnit_Framework_MockObject_MockObject | StockStateInterface $stockStateInterfaceMock */
         $stockStateInterfaceMock = $this->getMockBuilder(StockStateInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $availability = new Availability(new DateTime(), $stockStateInterfaceMock);
+        /** @var \PHPUnit_Framework_MockObject_MockObject | Context $preSellMock */
+        $preSellMock = $this->getMockBuilder(PreSell::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $availability = new Availability(new DateTime(), $stockStateInterfaceMock, $preSellMock);
 
         /** @var \PHPUnit_Framework_MockObject_MockObject | Config $stubConfig */
         $stubConfig = $this->getMockBuilder(Config::class)
@@ -55,6 +61,8 @@ class ListProductTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+
+
         $block = new ListProduct($availability, $stubConfig, $stubContext);
 
         return $block;
@@ -63,19 +71,15 @@ class ListProductTest extends \PHPUnit_Framework_TestCase
     public function testAvailabilityReturnsInstanceIf()
     {
         $product = $this->getProduct();
+        $availability = $this->getBlock()->getAvailability($product);
 
-        $this->assertInstanceOf(Phrase::class, $this->getBlock()->getAvailabilityMessage($product));
-
-        $this->assertContains(
-            'PRE-ORDER NOW FOR DELIVERY %1 %2',
-            $this->getBlock()->getAvailabilityMessage($product)->getText()
-        );
+        $this->assertInstanceOf(Phrase::class, $availability['label']);
     }
 
     /**
      * @return Product | \PHPUnit_Framework_MockObject_MockObject
      */
-    private function getProduct(): Product
+    private function getProduct()
     {
         $product = $this->getMockBuilder(Product::class)
             ->disableOriginalConstructor()

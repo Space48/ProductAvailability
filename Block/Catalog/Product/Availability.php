@@ -17,11 +17,13 @@ use Magento\Catalog\Model\Product;
 use Magento\CatalogInventory\Api\StockStateInterface;
 use Magento\Framework\Phrase;
 use Magento\Framework\Stdlib\DateTime;
+use Space48\PreSell\Block\PreSell;
 
 class Availability
 {
 
     const PRODUCT_VIEW_PAGE = 'pdp';
+    const GROUPED_PRODUCT_PAGE = "grouped";
 
     /**
      * @var DateTime
@@ -33,6 +35,11 @@ class Availability
     private $stockState;
 
     /**
+     * @var PreSell
+     */
+    private $preSell;
+
+    /**
      * Availability constructor.
      *
      * @param DateTime            $dateTime
@@ -40,8 +47,10 @@ class Availability
      */
     public function __construct(
         DateTime $dateTime,
-        StockStateInterface $stockState
+        StockStateInterface $stockState,
+        PreSell $preSell
     ) {
+        $this->preSell = $preSell;
         $this->dateTime = $dateTime;
         $this->stockState = $stockState;
     }
@@ -59,19 +68,80 @@ class Availability
     /**
      * @param $product Product
      *
+     * @return string
+     */
+    public function getAvailabilityDisplay($product, $view)
+    {
+        $data = [
+            'class' => 'unavailable',
+            'label' => __("Out of Stock"),
+            'has_date' => false
+        ];
+
+        /**
+         * If the item is set to "Out of Stock" then bypass any other checks. If on the grouped
+         * product page we do not display the "Out of Stock" message as this is handled elsewhere
+         */
+
+        if (!$this->preSell->getStockItemIsInStock($product->getId())) {
+            return $data;
+        }
+
+        /**
+         * If the item has a positive stock qty it is in stock and no other
+         * checks are required
+         */
+        if ($this->preSell->getStockQty($product) > 0) {
+            return [
+                'class' => 'available',
+                'label' => __("In Stock"),
+                'has_date' => false
+            ];
+        }
+
+        /**
+         * If the item is available for pre-sale then display the availability date message
+         * if one exists
+         */
+        if (
+            $this->preSell->canPreSell($product) > 0
+            && $message = $this->getAvailabilityMessage($product, $view)
+        ) {
+            $data = [
+                'class' => 'unavailable',
+                'label' => $message,
+                'has_date' => true
+            ];
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param $product Product
+     *
      * @param $view    string
      *
      * @return Phrase
      */
     public function getAvailabilityMessage($product, $view = 'pdp')
     {
-        $message = __('');
         if (!empty($availability = $this->getAvailability($product))) {
-            if ($view == self::PRODUCT_VIEW_PAGE) {
-                $message = __('Item due to arrive in stock %1 %2', $availability['early_mid_date'], $availability['month']);
+            if ($view == self::PRODUCT_VIEW_PAGE || $view == self::GROUPED_PRODUCT_PAGE) {
+                $message = __(
+                    'Item due to arrive in stock %1 %2',
+                    $availability['early_mid_date'],
+                    $availability['month']
+                );
             } else {
-                $message = __('PRE-ORDER NOW FOR DELIVERY %1 %2', $availability['early_mid_date'], $availability['month']);
+                $message = __(
+                    'PRE-ORDER NOW FOR DELIVERY %1 %2',
+                    $availability['early_mid_date'],
+                    $availability['month']
+                );
             }
+        } else {
+            $message = false;
         }
 
         return $message;
