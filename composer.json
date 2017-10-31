@@ -2,7 +2,7 @@
     "name": "space48/productavailability",
     "description": "Product Availability module for Magento 2",
     "type": "magento2-module",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "license": [
         "proprietary"
     ],
