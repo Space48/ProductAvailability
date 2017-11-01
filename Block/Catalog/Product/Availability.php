@@ -129,13 +129,13 @@ class Availability
         if (!empty($availability = $this->getAvailability($product))) {
             if ($view == self::PRODUCT_VIEW_PAGE || $view == self::GROUPED_PRODUCT_PAGE) {
                 $message = __(
-                    'Item due to arrive in stock ' . "<em>" . '%1 %2' . "</em>",
+                    '<span class="availability-msg">Item due to arrive in stock <em>' . '%1 %2' . '</em></span>',
                     $availability['early_mid_date'],
                     $availability['month']
                 );
             } else {
                 $message = __(
-                    'PRE-ORDER NOW FOR DELIVERY ' . "<em>" . '%1 %2' . "</em>",
+                    '<span class="availability-msg">Pre-order now for delivery <em>' . '%1 %2' . '</em></span>',
                     $availability['early_mid_date'],
                     $availability['month']
                 );
