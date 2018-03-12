@@ -130,13 +130,13 @@ class Availability
             if ($view == self::PRODUCT_VIEW_PAGE || $view == self::GROUPED_PRODUCT_PAGE) {
                 $message = __(
                     'Item due to arrive in stock ' . "<em>" . '%1 %2' . "</em>",
-                    $availability['early_mid_date'],
+                    $availability['early_late_date'],
                     $availability['month']
                 );
             } else {
                 $message = __(
                     'PRE-ORDER NOW FOR DELIVERY ' . "<em>" . '%1 %2' . "</em>",
-                    $availability['early_mid_date'],
+                    $availability['early_late_date'],
                     $availability['month']
                 );
             }
@@ -159,7 +159,7 @@ class Availability
         if (!empty($availableFromX = $this->dateTime->strToTime($product->getData('available_from_x')))) {
             $availableFromDate['day'] = date('d', $availableFromX);
             $availableFromDate['month'] = date('F', $availableFromX);
-            $availableFromDate['early_mid_date'] = $this->getEarlyMidLate($availableFromDate['day']);
+            $availableFromDate['early_late_date'] = $this->getEarlyOrLate($availableFromDate['day']);
         }
 
         return $availableFromDate;
@@ -170,10 +170,10 @@ class Availability
      *
      * @return string
      */
-    private function getEarlyMidLate($day): string
+    private function getEarlyOrLate($day): string
     {
         $day = (int) $day;
 
-        return ($day <= 10 ? 'early' : ($day <= 20 ? 'mid' : 'late'));
+        return ($day <= 15 ? 'early' : 'late');
     }
 }

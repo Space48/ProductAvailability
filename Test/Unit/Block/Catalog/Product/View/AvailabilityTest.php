@@ -99,17 +99,17 @@ class AvailabilityTest extends \PHPUnit_Framework_TestCase
             ]],
             [true, "pdp", 0, true, "2017-10-17 00:00:00", [
                 'class' => 'unavailable',
-                'label' => __('Item due to arrive in stock ' . "<em>" . '%1 %2' . "</em>", ['mid', 'October']),
+                'label' => __('Item due to arrive in stock ' . "<em>" . '%1 %2' . "</em>", ['late', 'October']),
                 'has_date' => true
             ]],
             [true, "grouped", 0, true, "2017-10-17 00:00:00", [
                 'class' => 'unavailable',
-                'label' => __('Item due to arrive in stock ' . "<em>" . '%1 %2' . "</em>", ['mid', 'October']),
+                'label' => __('Item due to arrive in stock ' . "<em>" . '%1 %2' . "</em>", ['late', 'October']),
                 'has_date' => true
             ]],
             [true, "plp", 0, true, "2017-10-17 00:00:00", [
                 'class' => 'unavailable',
-                'label' => __('PRE-ORDER NOW FOR DELIVERY ' . "<em>" . '%1 %2' . "</em>", ['mid', 'October']),
+                'label' => __('PRE-ORDER NOW FOR DELIVERY ' . "<em>" . '%1 %2' . "</em>", ['late', 'October']),
                 'has_date' => true
             ]],
             [true, "pdp", 0, true, "", [
