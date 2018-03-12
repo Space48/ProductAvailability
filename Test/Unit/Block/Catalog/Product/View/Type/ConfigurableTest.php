@@ -134,7 +134,7 @@ class ConfigurableTest extends \PHPUnit_Framework_TestCase
     public function testGetAvailabilityForPdpProduct()
     {
         $availability = $this->getBlock()->getAvailability($this->product, 'pdp');
-        $expected = __('Item due to arrive in stock %1 %2', ['late', 'May']);
+        $expected = __('Item due to arrive in stock <em>%1 %2</em>', ['late', 'May']);
         $PdpAvailabilityMessage = $availability['label'];
 
         $this->assertEquals($expected, $PdpAvailabilityMessage);
@@ -143,7 +143,7 @@ class ConfigurableTest extends \PHPUnit_Framework_TestCase
     public function testGetAvailabilityForPlpProduct()
     {
         $availability = $this->getBlock()->getAvailability($this->product, 'plp');
-        $expected = __('PRE-ORDER NOW FOR DELIVERY %1 %2', ['late', 'May']);
+        $expected = __('PRE-ORDER NOW FOR DELIVERY <em>%1 %2</em>', ['late', 'May']);
         $PdpAvailabilityMessage = $availability['label'];
 
         $this->assertEquals($expected, $PdpAvailabilityMessage);
