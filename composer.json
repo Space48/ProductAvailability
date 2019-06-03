@@ -2,7 +2,7 @@
     "name": "space48/productavailability",
     "description": "Product Availability module for Magento 2",
     "type": "magento2-module",
-    "version": "1.2.3",
+    "version": "1.2.4",
     "license": [
         "proprietary"
     ],
@@ -13,8 +13,8 @@
     }
   },
     "require": {
-        "php": "~5.6.0|~7.0.0",
-           "magento/framework": "^100.1.0| ^101.0.0"
+      "php": ">=5.6 <=7.3",
+      "magento/framework": "^100.1.0|^101.0.0|^102.0.0"
         },
     "require-dev": {
     "magento/marketplace-eqp": "~1.0.5",
